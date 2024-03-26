@@ -1,18 +1,18 @@
 // ----------- SCHEMA -----------
-const typeDefs = `#graphql
+const userTypeDefs = `#graphql
   type User {
-	_id: ID
-	name: String
-	username: String!
-	email: String!
-	password: String!
+    _id: ID
+    name: String
+    username: String
+    email: String
+    password: String
   }
 
   input UserContent {
-	name: String
-	username: String
-	email: String
-	password: String
+    name: String
+    username: String
+    email: String
+    password: String
   }
 
   # Query -> (Read)
@@ -22,8 +22,8 @@ const typeDefs = `#graphql
 
   # Mutation -> (Create, Update, Delete)
   type Mutation {
-  addUser(User: UserContent): User
+    register(User: UserContent): User
   }
 `;
 
-module.exports = typeDefs;
+module.exports = userTypeDefs;

@@ -1,9 +1,11 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
+// ----------- IMPORT TYPE DEFS -----------
 const userTypeDefs = require("./schemas/user");
-const userResolvers = require("./resolvers/user");
 const postTypeDefs = require("./schemas/post");
 const followTypeDefs = require("./schemas/follow");
+// ----------- IMPORT RESOLVERS -----------
+const userResolvers = require("./resolvers/user");
 
 const server = new ApolloServer({
 	typeDefs: [userTypeDefs, postTypeDefs, followTypeDefs],
@@ -13,7 +15,7 @@ const server = new ApolloServer({
 
 // ----------- SETUP LISTENER -----------
 startStandaloneServer(server, {
-	listen: { port: 3000 },
+	listen: { port: 4000 },
 	context: ({ req, res }) => {
 		// Middleware here
 		return {};

@@ -1,28 +1,28 @@
 // ----------- SCHEMA -----------
-const typeDefs = `#graphql
+const postTypeDefs = `#graphql
   type Post {
 	_id: ID
-    content: String!
-    tags: [] String
+    content: String
+    tags: [String]
     imgUrl: String
-    authorId: ID!
+    authorId: ID
     comment: [Comment]
     likes: [Likes]
-    createdAt: Date
-    updatedAt: Date
+    createdAt: String
+    updatedAt: String
   }
 
   type Comment {
-    content: String!
-    username: String!
-    createdAt: Date
-    updatedAt: Date
+    content: String
+    username: String
+    createdAt: String
+    updatedAt: String
   }
 
   type Likes {
-    username: String!
-    createdAt: Date
-    updatedAt: Date
+    username: String
+    createdAt: String
+    updatedAt: String
   }
 
   # Query -> (Read)
@@ -31,9 +31,6 @@ const typeDefs = `#graphql
   }
 
   # Mutation -> (Create, Update, Delete)
-    # type Mutation {
-    # addUser(User: UserContent): User
-    # }
 `;
 
-module.exports = typeDefs;
+module.exports = postTypeDefs;
