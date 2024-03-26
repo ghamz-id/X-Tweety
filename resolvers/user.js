@@ -1,20 +1,36 @@
+const { hashPassword, comparePassword } = require("../helpers/bcrypt");
+const { signToken } = require("../helpers/jwt");
 const User = require("../models/user");
 
 // ----------- CONTROLLER -----------
 const userResolvers = {
-	Query: {
-		users: async () => {
-			const users = await User.findAll();
-			return users;
-		},
-	},
 	Mutation: {
+		login: async (_, args) => {
+			const { email, password } = args;
+			const data_user = await User.findByEmail(email);
+			if (!data_user) throw new Error("Invalid Email or Password");
+
+			const verifyPassword = comparePassword(password, data_user.password);
+			if (!verifyPassword) throw new Error("Invalid Email or Password");
+
+			const token = {
+				access_token: signToken({
+					id: data_user.id,
+				}),
+			};
+			return token;
+		},
 		register: async (_, args) => {
 			const { name, username, email, password } = args.User;
-			const result = await User.register({ name, username, email, password });
+			await User.register({
+				name,
+				username,
+				email,
+				password: hashPassword(password),
+			});
 
-			args.User._id = result.insertedId;
-			return args.User;
+			const data_user = await User.findByEmail(email);
+			return data_user;
 		},
 	},
 };

@@ -8,6 +8,10 @@ const userTypeDefs = `#graphql
     password: String
   }
 
+  type Token {
+    access_token: String
+  }
+
   input UserContent {
     name: String
     username: String
@@ -22,6 +26,7 @@ const userTypeDefs = `#graphql
 
   # Mutation -> (Create, Update, Delete)
   type Mutation {
+    login(email: String, password: String): Token
     register(User: UserContent): User
   }
 `;
