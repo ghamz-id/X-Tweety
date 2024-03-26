@@ -1,9 +1,15 @@
-const User = require("../models/user");
-
 // ----------- SCHEMA -----------
 const typeDefs = `#graphql
   type User {
-    id: ID
+	_id: ID
+	name: String
+	username: String!
+	email: String!
+	password: String!
+  }
+
+  input UserContent {
+	name: String
 	username: String
 	email: String
 	password: String
@@ -11,33 +17,13 @@ const typeDefs = `#graphql
 
   # Query -> (Read)
   type Query {
-    users: [User] 
+    users: [User]
   }
 
   # Mutation -> (Create, Update, Delete)
   type Mutation {
-  addUser(username: String,	email: String, password: String): User
+  addUser(User: UserContent): User
   }
 `;
 
-// ----------- CONTROLLER -----------
-const resolvers = {
-	Query: {
-		users: async () => {
-			const users = await User.findAll();
-			return users;
-		},
-	},
-	Mutation: {
-		addUser: async (_, args) => {
-			const { username, email, password } = args;
-			const result = await User.register({ username, email, password });
-			return { username, email };
-		},
-	},
-};
-
-module.exports = {
-	typeDefs,
-	resolvers,
-};
+module.exports = typeDefs;
