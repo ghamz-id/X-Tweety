@@ -1,7 +1,7 @@
 // ----------- SCHEMA -----------
 const postTypeDefs = `#graphql
   type Post {
-	_id: ID
+	  _id: ID
     content: String
     tags: [String]
     imgUrl: String
@@ -10,6 +10,11 @@ const postTypeDefs = `#graphql
     likes: [Likes]
     createdAt: String
     updatedAt: String
+  }
+
+  input PostContent {
+    content: String
+    imgUrl: String
   }
 
   type Comment {
@@ -31,6 +36,9 @@ const postTypeDefs = `#graphql
   }
 
   # Mutation -> (Create, Update, Delete)
+  type Mutation {
+    addPost(post: PostContent) : Post
+  }
 `;
 
 module.exports = postTypeDefs;

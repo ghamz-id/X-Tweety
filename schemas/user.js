@@ -3,9 +3,9 @@ const userTypeDefs = `#graphql
   type User {
     _id: ID
     name: String
-    username: String
-    email: String
-    password: String
+    username: String!
+    email: String!
+    password: String!
   }
 
   type Token {
@@ -22,6 +22,8 @@ const userTypeDefs = `#graphql
   # Query -> (Read)
   type Query {
     users: [User]
+    findById(_id: ID) : User
+    findByUsername(username: String) : User
   }
 
   # Mutation -> (Create, Update, Delete)
