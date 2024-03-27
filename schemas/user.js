@@ -5,11 +5,31 @@ const userTypeDefs = `#graphql
     name: String
     username: String!
     email: String!
-    password: String!
+    password: String
+    follower: [Follow]
+    follower_detail: [Follow_Detail]
+    following: [Follow]
+    following_detail: [Follow_Detail]
   }
 
   type Token {
     access_token: String
+  }
+
+  type Follow {
+      _id: ID
+      followingId: ID
+      followerId: ID
+      createdAt: String
+      updatedAt: String
+  }
+
+  type Follow_Detail {
+    _id: ID
+    name: String
+    username: String
+    email: String
+    password: String
   }
 
   input UserContent {
@@ -21,9 +41,8 @@ const userTypeDefs = `#graphql
 
   # Query -> (Read)
   type Query {
-    users: [User]
-    findById(_id: ID) : User
-    findByUsername(username: String) : User
+    searchUser(username: String) : [User]
+    getDetail(_id: ID) : User
   }
 
   # Mutation -> (Create, Update, Delete)

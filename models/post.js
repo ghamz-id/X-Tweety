@@ -26,6 +26,11 @@ class Post {
 					as: "author",
 				},
 			},
+			{
+				$project: {
+					"author.password": 0,
+				},
+			},
 		];
 		const cursor = this.db_post().aggregate(agg);
 		const posts = await cursor.toArray();
@@ -47,6 +52,11 @@ class Post {
 					as: "author",
 				},
 			},
+			{
+				$project: {
+					"author.password": 0,
+				},
+			},
 		];
 		const cursor = this.db_post().aggregate(agg);
 		const post = await cursor.toArray();
@@ -62,9 +72,19 @@ class Post {
 	}
 
 	static async addLike(payload, id) {
+		// Validasi
+		const { username } = payload;
+		let option = { $push: { likes: payload } };
+		const dataPost = await this.findById(id);
+		dataPost[0].likes.map((el) => {
+			if (el.username === username) {
+				option = { $pull: { likes: { username } } };
+			}
+		});
+
 		const post = await this.db_post().updateOne(
 			{ _id: new ObjectId(String(id)) },
-			{ $push: { likes: payload } }
+			option
 		);
 		return post;
 	}

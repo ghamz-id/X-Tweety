@@ -6,17 +6,17 @@ const User = require("../models/user");
 // ----------- CONTROLLER -----------
 const userResolvers = {
 	Query: {
-		findById: async (_, args) => {
-			if (!args._id) throw new Error("ID not found");
-
-			const data_user = await User.findById(args._id);
-			if (!data_user) throw new Error("ID not found");
-			return data_user;
-		},
-		findByUsername: async (_, args) => {
-			const data_user = await User.findByUsername(args.username);
+		searchUser: async (_, args) => {
+			const data_user = await User.searchByUsername(args.username);
 			if (!data_user) throw new Error("Username not found");
 			return data_user;
+		},
+		getDetail: async (_, args) => {
+			if (!args._id) throw new Error("ID not found");
+
+			const data_user = await User.getDetail(args._id);
+			if (!data_user) throw new Error("ID not found");
+			return data_user[0];
 		},
 	},
 	Mutation: {
