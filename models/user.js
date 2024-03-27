@@ -27,6 +27,8 @@ class User {
 		});
 		return user;
 	}
+
+	static async getDetail(id) {}
 }
 
 module.exports = User;

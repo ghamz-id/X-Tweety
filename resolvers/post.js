@@ -22,7 +22,7 @@ const postResolvers = {
 
 			const data_post = await Post.findById(args._id);
 			if (!data_post) throw new Error("ID not found");
-			return data_post;
+			return data_post[0];
 		},
 	},
 	Mutation: {
@@ -41,7 +41,7 @@ const postResolvers = {
 				authorId,
 				createdAt,
 				updatedAt,
-				comment: [],
+				comments: [],
 				likes: [],
 				tags: [],
 			};

@@ -6,10 +6,11 @@ const postTypeDefs = `#graphql
     tags: [String]
     imgUrl: String
     authorId: ID!
-    comment: [Comment]
+    comments: [Comment]
     likes: [Likes]
     createdAt: String
     updatedAt: String
+    author: [Author]
   }
 
   input PostContent {
@@ -28,6 +29,14 @@ const postTypeDefs = `#graphql
     username: String!
     createdAt: String
     updatedAt: String
+  }
+
+  type Author {
+    _id: ID
+    name: String
+    username: String
+    email: String
+    password: String
   }
 
   # Query -> (Read)
