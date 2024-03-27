@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { database } = require("../config/mongo");
 
 class Post {
@@ -13,6 +14,13 @@ class Post {
 	static async findAll() {
 		const posts = await this.db_post().find().toArray();
 		return posts;
+	}
+
+	static async findById(id) {
+		const post = await this.db_post().findOne({
+			_id: new ObjectId(String(id)),
+		});
+		return post;
 	}
 }
 

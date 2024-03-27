@@ -2,10 +2,10 @@
 const postTypeDefs = `#graphql
   type Post {
 	  _id: ID
-    content: String
+    content: String!
     tags: [String]
     imgUrl: String
-    authorId: ID
+    authorId: ID!
     comment: [Comment]
     likes: [Likes]
     createdAt: String
@@ -18,14 +18,14 @@ const postTypeDefs = `#graphql
   }
 
   type Comment {
-    content: String
-    username: String
+    content: String!
+    username: String!
     createdAt: String
     updatedAt: String
   }
 
   type Likes {
-    username: String
+    username: String!
     createdAt: String
     updatedAt: String
   }
@@ -33,6 +33,7 @@ const postTypeDefs = `#graphql
   # Query -> (Read)
   type Query {
     posts: [Post]
+    postById(_id: ID): Post
   }
 
   # Mutation -> (Create, Update, Delete)

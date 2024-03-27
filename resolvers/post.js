@@ -4,7 +4,8 @@ const redis = require("../config/redis_connection");
 
 const postResolvers = {
 	Query: {
-		posts: async () => {
+		posts: async (_, __, contextValue) => {
+			contextValue.auth();
 			const redisPost = await redis.get("posts");
 			if (redisPost) {
 				return JSON.parse(redisPost);
@@ -14,6 +15,14 @@ const postResolvers = {
 				return posts;
 			}
 		},
+		postById: async (_, args, contextValue) => {
+			contextValue.auth();
+			if (!args._id) throw new Error("ID not found");
+
+			const data_post = await Post.findById(args._id);
+			if (!data_post) throw new Error("ID not found");
+			return data_post;
+		},
 	},
 	Mutation: {
 		addPost: async (_, args, contextValue) => {
@@ -22,12 +31,18 @@ const postResolvers = {
 			const authorId = new ObjectId(String(contextValue.auth().id));
 			let createdAt = (updatedAt = new Date());
 
+			// Validation
+			if (!content) throw new Error("Content is require");
+
 			const newPost = {
 				content,
 				imgUrl,
 				authorId,
 				createdAt,
 				updatedAt,
+				comment: [],
+				likes: [],
+				tags: [],
 			};
 
 			await Post.addPost(newPost);

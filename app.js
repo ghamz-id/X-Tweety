@@ -9,10 +9,11 @@ const followTypeDefs = require("./schemas/follow");
 // ----------- IMPORT RESOLVERS -----------
 const userResolvers = require("./resolvers/user");
 const postResolvers = require("./resolvers/post");
+const followResolvers = require("./resolvers/follow");
 
 const server = new ApolloServer({
 	typeDefs: [userTypeDefs, postTypeDefs, followTypeDefs],
-	resolvers: [userResolvers, postResolvers],
+	resolvers: [userResolvers, postResolvers, followResolvers],
 	introspection: true, // Tambahan, agar sandbox apollo bisa diakses di environment
 });
 
