@@ -22,6 +22,22 @@ class Post {
 		});
 		return post;
 	}
+
+	static async addComment(payload, id) {
+		const post = await this.db_post().updateOne(
+			{ _id: new ObjectId(String(id)) },
+			{ $push: { comment: payload } }
+		);
+		return post;
+	}
+
+	static async addLike(payload, id) {
+		const post = await this.db_post().updateOne(
+			{ _id: new ObjectId(String(id)) },
+			{ $push: { likes: payload } }
+		);
+		return post;
+	}
 }
 
 module.exports = Post;

@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const Post = require("../models/post");
+const User = require("../models/user");
 const redis = require("../config/redis_connection");
 
 const postResolvers = {
@@ -34,7 +35,7 @@ const postResolvers = {
 			// Validation
 			if (!content) throw new Error("Content is require");
 
-			const newPost = {
+			const input = {
 				content,
 				imgUrl,
 				authorId,
@@ -45,9 +46,39 @@ const postResolvers = {
 				tags: [],
 			};
 
-			await Post.addPost(newPost);
+			await Post.addPost(input);
 			await redis.del("posts");
-			return newPost;
+			return input;
+		},
+		addComment: async (_, args, contextValue) => {
+			contextValue.auth();
+			const { content } = args;
+			const { postId } = args;
+			const { username } = await User.findById(contextValue.auth().id);
+			const createdAt = (updatedAt = new Date());
+
+			const input = {
+				content,
+				username,
+				createdAt,
+				updatedAt,
+			};
+			await Post.addComment(input, postId);
+			return input;
+		},
+		addLike: async (_, args, contextValue) => {
+			contextValue.auth();
+			const { postId } = args;
+			const { username } = await User.findById(contextValue.auth().id);
+			const createdAt = (updatedAt = new Date());
+
+			const input = {
+				username,
+				createdAt,
+				updatedAt,
+			};
+			await Post.addLike(input, postId);
+			return input;
 		},
 	},
 };

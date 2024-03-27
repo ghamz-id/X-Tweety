@@ -39,6 +39,8 @@ const postTypeDefs = `#graphql
   # Mutation -> (Create, Update, Delete)
   type Mutation {
     addPost(post: PostContent) : Post
+    addComment(content: String, postId: ID) : Comment
+    addLike(postId: ID) : Likes
   }
 `;
 

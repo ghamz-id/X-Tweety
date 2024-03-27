@@ -54,14 +54,14 @@ const userResolvers = {
 				throw new Error("Email must be formated (example@mail.com)");
 
 			// Create User
-			const newUser = {
+			const input = {
 				name,
 				username,
 				email,
 				password: hashPassword(password),
 			};
-			await User.register(newUser);
-			return newUser;
+			await User.register(input);
+			return input;
 		},
 	},
 };

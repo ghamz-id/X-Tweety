@@ -9,14 +9,14 @@ const followResolvers = {
 			const followerId = new ObjectId(String(contextValue.auth().id));
 			const createdAt = (updatedAt = new Date());
 
-			const newFollow = {
+			const input = {
 				followingId,
 				followerId,
 				createdAt,
 				updatedAt,
 			};
-			await Follow.addFollow(newFollow);
-			return newFollow;
+			await Follow.addFollow(input);
+			return input;
 		},
 	},
 };
