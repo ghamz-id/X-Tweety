@@ -7,7 +7,6 @@ export default function HomeScreen() {
 			<ScrollView>
 				<Card />
 				<Card />
-				<Card />
 			</ScrollView>
 		</View>
 	);
