@@ -1,10 +1,14 @@
-import { ScrollView } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import Card from "../component/card";
 
 export default function HomeScreen() {
 	return (
-		<ScrollView>
-			<Card />
-		</ScrollView>
+		<View>
+			<ScrollView>
+				<Card />
+				<Card />
+				<Card />
+			</ScrollView>
+		</View>
 	);
 }
