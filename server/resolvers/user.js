@@ -6,12 +6,14 @@ const User = require("../models/user");
 // ----------- CONTROLLER -----------
 const userResolvers = {
 	Query: {
-		searchUser: async (_, args) => {
+		searchUser: async (_, args, contextValue) => {
+			contextValue.auth();
 			const data_user = await User.searchByUsername(args.username);
 			if (!data_user) throw new Error("Username not found");
 			return data_user;
 		},
-		getDetail: async (_, args) => {
+		getDetail: async (_, args, contextValue) => {
+			contextValue.auth();
 			if (!args._id) throw new Error("ID not found");
 
 			const data_user = await User.getDetail(args._id);

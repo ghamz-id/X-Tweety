@@ -3,6 +3,7 @@ const Tab = createBottomTabNavigator();
 import { Text, Image } from "react-native";
 import HomeScreen from "../screens/home_screen";
 import Search from "../screens/search_screen";
+import * as SecureStore from "expo-secure-store";
 
 // ICON
 import {
@@ -11,8 +12,11 @@ import {
 	FontAwesome,
 	MaterialIcons,
 } from "@expo/vector-icons";
+import { useContext } from "react";
+import { AuthContext } from "../context/auth";
 
 export default function Tab_Navigator({ navigation }) {
+	const { setIsSignedIn } = useContext(AuthContext);
 	return (
 		<Tab.Navigator>
 			{/* ----- HOME ----- */}
@@ -40,7 +44,10 @@ export default function Tab_Navigator({ navigation }) {
 					),
 					headerRight: () => (
 						<Text
-							onPress={() => navigation.navigate("Login")}
+							onPress={async () => {
+								await SecureStore.deleteItemAsync("access_token");
+								setIsSignedIn(false);
+							}}
 							className="mx-4 text-lg"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />
@@ -77,7 +84,10 @@ export default function Tab_Navigator({ navigation }) {
 					),
 					headerRight: () => (
 						<Text
-							onPress={() => navigation.navigate("Login")}
+							onPress={async () => {
+								await SecureStore.deleteItemAsync("access_token");
+								setIsSignedIn(false);
+							}}
 							className="mx-4 text-lg"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />

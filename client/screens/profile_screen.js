@@ -1,7 +1,21 @@
-import { View, Image, Text, Alert } from "react-native";
+import { View, Image, Text, Alert, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { GET_PROFILE } from "../query/query_getProfile";
+import { useQuery } from "@apollo/client";
 
-export default function Profile() {
+export default function Profile({ route }) {
+	const { id } = route.params;
+	const { loading, error, data } = useQuery(GET_PROFILE, {
+		variables: { id },
+	});
+	const user = data?.getDetail;
+	if (loading) {
+		return (
+			<View className="flex-1 items-center justify-center">
+				<ActivityIndicator size="xl" color="black" />
+			</View>
+		);
+	}
 	return (
 		<SafeAreaView className="flex-1">
 			<View className="flex-1 border-b border-t border-slate-300">
@@ -31,14 +45,14 @@ export default function Profile() {
 					</Text>
 				</View>
 				<View>
-					<Text className="font-bold">Name</Text>
-					<Text>@Username</Text>
+					<Text className="font-bold">{user?.name}</Text>
+					<Text>@{user?.username}</Text>
 				</View>
 				<View className="flex flex-row mt-16 mb-4">
 					<Text className="font-bold" style={{ marginEnd: 10 }}>
-						10 Following
+						{user?.following.length} Following
 					</Text>
-					<Text className="font-bold">10 Follower</Text>
+					<Text className="font-bold">{user?.follower.length} Follower</Text>
 				</View>
 			</View>
 			<View className="flex-[4] items-center justify-center">

@@ -1,11 +1,11 @@
 import { View, Text, Alert } from "react-native";
 
-export default function User_Card() {
+export default function User_Card({ item }) {
 	return (
 		<View className="flex flex-row p-4 border-b border-slate-300">
 			<View className="flex-1">
-				<Text className="font-bold">Name</Text>
-				<Text>@UserName</Text>
+				<Text className="font-bold">{item.name}</Text>
+				<Text>@{item.username}</Text>
 			</View>
 			<View>
 				<Text

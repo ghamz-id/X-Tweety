@@ -1,6 +1,49 @@
-import { Text, TextInput, View, Image } from "react-native";
+import {
+	Text,
+	TextInput,
+	View,
+	Image,
+	Alert,
+	ActivityIndicator,
+} from "react-native";
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "../query/query_login";
+import { useContext, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+import { AuthContext } from "../context/auth";
 
 export default function Login({ navigation }) {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const { setIsSignedIn } = useContext(AuthContext);
+	const [login, { loading }] = useMutation(LOGIN, {
+		onCompleted: async (data) => {
+			await SecureStore.setItemAsync("access_token", data?.login.access_token);
+			setIsSignedIn(true);
+		},
+	});
+
+	if (loading) {
+		return (
+			<View className="flex-1 items-center justify-center">
+				<ActivityIndicator size="xl" color="black" />
+			</View>
+		);
+	}
+
+	const Submit = async () => {
+		try {
+			await login({
+				variables: {
+					email,
+					password,
+				},
+			});
+		} catch (error) {
+			Alert.alert("Login Failed", error.message);
+		}
+	};
+
 	return (
 		<View className="flex-1 items-center justify-center">
 			<Image
@@ -13,15 +56,19 @@ export default function Login({ navigation }) {
 			<TextInput
 				placeholder="Email"
 				className="border w-80 px-5 rounded-3xl h-12 border-white bg-slate-200 mt-4"
+				onChangeText={setEmail}
+				value={email}
 			/>
 			<TextInput
 				secureTextEntry={true}
 				placeholder="Password"
 				className="border w-80 px-5 rounded-3xl h-12 border-white bg-slate-200 mt-4"
+				onChangeText={setPassword}
+				value={password}
 			/>
 			<View className="w-80 mt-8">
 				<Text
-					onPress={() => navigation.navigate("Tab_Menu")}
+					onPress={Submit}
 					className="text-center font-bold p-2 rounded-3xl bg-black text-white border border-black"
 				>
 					Login

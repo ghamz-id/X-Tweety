@@ -7,8 +7,8 @@ export default function DetailsScreen({ route }) {
 	return (
 		<ScrollView>
 			<Card item={item} />
-			{item.comments.map((item) => (
-				<Comment key={item._id} item={item} />
+			{item.comments.map((item, i) => (
+				<Comment key={i} item={item} />
 			))}
 		</ScrollView>
 	);

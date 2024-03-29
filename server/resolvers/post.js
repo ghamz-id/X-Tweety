@@ -6,7 +6,7 @@ const redis = require("../config/redis_connection");
 const postResolvers = {
 	Query: {
 		posts: async (_, __, contextValue) => {
-			// contextValue.auth();
+			contextValue.auth();
 			const redisPost = await redis.get("posts");
 			if (redisPost) {
 				return JSON.parse(redisPost);
