@@ -4,6 +4,7 @@ module.exports = {
 		"./App.js",
 		"./screens/login_screen.js",
 		"./screens/register_screen.js",
+		"./screens/home_screen.js",
 		"./screens/profile_screen.js",
 		"./screens/search_screen.js",
 		"./component/card.js",

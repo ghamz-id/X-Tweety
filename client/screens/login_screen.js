@@ -36,12 +36,11 @@ export default function Login({ navigation }) {
 					Register
 				</Text>
 
-				<Text className="mt-4 text-slate-500 text-center tracking-tight">
+				<Text className="mt-8 text-slate-500 text-center tracking-tight">
 					Dengan mendaftar, Anda menyetujui
-					<Text className="text-blue-600">
-						{" "}
-						Persyaratan, Kebijakan, Privasi,
-					</Text>{" "}
+					<Text className="text-blue-600"> Persyaratan</Text>,
+					<Text className="text-blue-600"> Kebijakan</Text>,
+					<Text className="text-blue-600"> Privasi </Text>
 					dan
 					<Text className="text-blue-600"> Penggunaan Kuki</Text>
 				</Text>
