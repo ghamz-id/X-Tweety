@@ -6,6 +6,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 // ICON
 import { Entypo } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 export default function Tab_Navigator() {
 	return (
@@ -15,9 +16,13 @@ export default function Tab_Navigator() {
 				component={HomeScreen}
 				options={{
 					title: "",
+					headerTitle: () => (
+						<FontAwesome6 name="x-twitter" size={24} color="black" />
+					),
+					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Text
-							onPress={() => Alert.alert("Navigate to profile")}
+							onPress={() => Alert.alert("PROFILE")}
 							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
@@ -30,7 +35,7 @@ export default function Tab_Navigator() {
 					),
 					headerRight: () => (
 						<Text
-							onPress={() => Alert.alert("Navigate to Login")}
+							onPress={() => Alert.alert("LOGOUT")}
 							className="mx-4 text-lg"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />
