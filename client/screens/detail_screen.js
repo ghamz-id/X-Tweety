@@ -1,9 +1,12 @@
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
+import Card from "../component/card";
+import Comment from "../component/comment_card";
 
 export default function DetailsScreen() {
 	return (
-		<View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-			<Text>Details Screen</Text>
-		</View>
+		<ScrollView>
+			<Card />
+			<Comment />
+		</ScrollView>
 	);
 }

@@ -7,6 +7,7 @@ const Stack = createNativeStackNavigator();
 // ICONS
 import { Ionicons } from "@expo/vector-icons";
 import { Alert } from "react-native";
+import DetailsScreen from "../screens/detail_screen";
 
 export default function Stack_Navigator() {
 	return (
@@ -21,7 +22,7 @@ export default function Stack_Navigator() {
 				component={Register}
 				options={{ headerShown: false }}
 			/> */}
-			<Stack.Screen
+			{/* <Stack.Screen
 				name="Profile"
 				component={Profile}
 				options={{
@@ -32,6 +33,21 @@ export default function Stack_Navigator() {
 							name="arrow-back"
 							size={24}
 							color="white"
+						/>
+					),
+				}}
+			/> */}
+			<Stack.Screen
+				name="Posting"
+				component={DetailsScreen}
+				options={{
+					headerTitleAlign: "center",
+					headerLeft: () => (
+						<Ionicons
+							onPress={() => Alert.alert("BACK")}
+							name="arrow-back"
+							size={24}
+							color="black"
 						/>
 					),
 				}}

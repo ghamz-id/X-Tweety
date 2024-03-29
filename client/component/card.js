@@ -1,4 +1,4 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 
 export default function Card() {
@@ -30,15 +30,19 @@ export default function Card() {
 						}}
 					/>
 				</View>
-				<View className="flex flex-row gap-5 justify-end p-2">
-					<View className="flex flex-row justify-center items-center gap-1">
-						<AntDesign name="like2" size={20} color="black" />
-						<Text>10</Text>
-					</View>
-					<View className="flex flex-row justify-center items-center gap-1">
-						<Feather name="message-circle" size={20} color="black" />
-						<Text>10</Text>
-					</View>
+				<View className="flex flex-row justify-end">
+					<TouchableOpacity onPress={() => Alert.alert("LIKE")}>
+						<View className="flex flex-row justify-center items-center p-2">
+							<AntDesign name="like2" size={20} color="black" />
+							<Text> 10</Text>
+						</View>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => Alert.alert("COMMENT")}>
+						<View className="flex flex-row justify-center items-center p-2">
+							<Feather name="message-circle" size={20} color="black" />
+							<Text> 10</Text>
+						</View>
+					</TouchableOpacity>
 				</View>
 			</View>
 		</View>
