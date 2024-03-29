@@ -1,18 +1,21 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
+import { Text, Image } from "react-native";
 import HomeScreen from "../screens/home_screen";
-import { Alert, Text, Image } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import Search from "../screens/search_screen";
 
 // ICON
-import { Entypo } from "@expo/vector-icons";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+	Entypo,
+	FontAwesome6,
+	FontAwesome,
+	MaterialIcons,
+} from "@expo/vector-icons";
 
-export default function Tab_Navigator() {
+export default function Tab_Navigator({ navigation }) {
 	return (
 		<Tab.Navigator>
+			{/* ----- HOME ----- */}
 			<Tab.Screen
 				name="Home"
 				component={HomeScreen}
@@ -24,7 +27,7 @@ export default function Tab_Navigator() {
 					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Text
-							onPress={() => Alert.alert("PROFILE")}
+							onPress={() => navigation.navigate("Profile")}
 							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
@@ -37,7 +40,7 @@ export default function Tab_Navigator() {
 					),
 					headerRight: () => (
 						<Text
-							onPress={() => Alert.alert("LOGOUT")}
+							onPress={() => navigation.navigate("Login")}
 							className="mx-4 text-lg"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />
@@ -48,6 +51,8 @@ export default function Tab_Navigator() {
 					},
 				}}
 			/>
+
+			{/* ----- SEARCH ----- */}
 			<Tab.Screen
 				name="Search"
 				component={Search}
@@ -59,7 +64,7 @@ export default function Tab_Navigator() {
 					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Text
-							onPress={() => Alert.alert("PROFILE")}
+							onPress={() => navigation.navigate("Profile")}
 							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
@@ -72,7 +77,7 @@ export default function Tab_Navigator() {
 					),
 					headerRight: () => (
 						<Text
-							onPress={() => Alert.alert("LOGOUT")}
+							onPress={() => navigation.navigate("Login")}
 							className="mx-4 text-lg"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />

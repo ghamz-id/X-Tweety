@@ -1,6 +1,6 @@
 import { Text, TextInput, View, Alert } from "react-native";
 
-export default function Register() {
+export default function Register({ navigation }) {
 	return (
 		<>
 			<View className="flex-1 items-center justify-center">
@@ -32,7 +32,10 @@ export default function Register() {
 				</Text>
 				<View className="flex flex-row mt-8">
 					<Text>Already have an account ? </Text>
-					<Text onPress={() => Alert.alert("Login")} style={{ color: "blue" }}>
+					<Text
+						onPress={() => navigation.navigate("Login")}
+						style={{ color: "blue" }}
+					>
 						Login Here
 					</Text>
 				</View>

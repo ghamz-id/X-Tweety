@@ -1,12 +1,12 @@
-import { ScrollView, View, Alert, TouchableOpacity } from "react-native";
+import { ScrollView, View, TouchableOpacity } from "react-native";
 import Card from "../component/card";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
 	return (
 		<View>
 			<ScrollView>
 				<TouchableOpacity
-					onPress={() => Alert.alert("DETAIL")}
+					onPress={() => navigation.navigate("Posting")}
 					underlayColor="#eee"
 				>
 					<Card />

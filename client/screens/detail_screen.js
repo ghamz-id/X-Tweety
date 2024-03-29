@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView } from "react-native";
 import Card from "../component/card";
 import Comment from "../component/comment_card";
 

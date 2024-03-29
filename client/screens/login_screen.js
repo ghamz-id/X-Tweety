@@ -1,6 +1,6 @@
-import { Text, TextInput, View, Alert, Image } from "react-native";
+import { Text, TextInput, View, Image } from "react-native";
 
-export default function Login() {
+export default function Login({ navigation }) {
 	return (
 		<View className="flex-1 items-center justify-center">
 			<Image
@@ -21,7 +21,7 @@ export default function Login() {
 			/>
 			<View className="w-80 mt-8">
 				<Text
-					onPress={() => Alert.alert("Login")}
+					onPress={() => navigation.navigate("Tab_Menu")}
 					className="text-center font-bold p-2 rounded-3xl bg-black text-white border border-black"
 				>
 					Login
@@ -30,7 +30,7 @@ export default function Login() {
 					Doesn't have an account yet ?
 				</Text>
 				<Text
-					onPress={() => Alert.alert("Register")}
+					onPress={() => navigation.navigate("Register")}
 					className="text-center  font-bold p-2 border border-slate-300 rounded-3xl"
 				>
 					Register
