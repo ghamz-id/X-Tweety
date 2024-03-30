@@ -1,6 +1,34 @@
+import { useMutation } from "@apollo/client";
 import { Text, TextInput, View, Alert } from "react-native";
+import { REGISTER } from "../query/mutation_register";
+import { useState } from "react";
 
 export default function Register({ navigation }) {
+	const [name, setName] = useState("");
+	const [username, setUsername] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	const [Register, { loading, error, data }] = useMutation(REGISTER);
+	const Submit = async () => {
+		try {
+			await Register({
+				variables: {
+					user: {
+						name: name,
+						username: username,
+						email: email,
+						password: password,
+					},
+				},
+			});
+			Alert.alert("Register Success");
+			navigation.navigate("Login");
+		} catch (error) {
+			console.log(error.message);
+			Alert.alert("Register Failed", error.message);
+		}
+	};
 	return (
 		<>
 			<View className="flex-1 items-center justify-center">
@@ -10,22 +38,30 @@ export default function Register({ navigation }) {
 				<TextInput
 					placeholder="Name"
 					className="border w-80 px-5 rounded-3xl h-12 border-white bg-slate-200 mt-4"
+					onChangeText={setName}
+					value={name}
 				/>
 				<TextInput
 					placeholder="Username"
 					className="border w-80 px-5 rounded-3xl h-12 border-white bg-slate-200 mt-4"
+					onChangeText={setUsername}
+					value={username}
 				/>
 				<TextInput
 					placeholder="Email"
 					className="border w-80 px-5 rounded-3xl h-12 border-white bg-slate-200 mt-4"
+					onChangeText={setEmail}
+					value={email}
 				/>
 				<TextInput
 					secureTextEntry={true}
 					placeholder="Password"
 					className="border w-80 px-5 rounded-3xl h-12 border-white bg-slate-200 mt-4"
+					onChangeText={setPassword}
+					value={password}
 				/>
 				<Text
-					onPress={() => Alert.alert("Register")}
+					onPress={Submit}
 					className="text-center font-bold p-2 mt-8 rounded-3xl bg-black text-white border border-black w-80"
 				>
 					Register

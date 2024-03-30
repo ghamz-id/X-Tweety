@@ -49,6 +49,7 @@ const userResolvers = {
 			// Validation
 			if (data_user) throw new Error("Email must be unique");
 			if (user) throw new Error("Username must be unique");
+			if (!name) throw new Error("Name is required");
 			if (!username) throw new Error("Username is required");
 			if (!email) throw new Error("Email is required");
 			if (!password) throw new Error("Password is required");

@@ -8,7 +8,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GET_PROFILE } from "../query/query_getProfile";
 import { useMutation, useQuery } from "@apollo/client";
-import { ADD_FOLLOW } from "../query/query_addFollow";
+import { ADD_FOLLOW } from "../query/mutation_follow";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
 
@@ -67,9 +67,9 @@ export default function Profile({ route }) {
 			<View className="flex px-4 border-b border-slate-300">
 				<TouchableOpacity>
 					<View className="flex items-end py-3 w-full">
-						{user.follower.map((item) => {
+						{/* {user.follower.map((item) => {
 							return item.followerId === userLogin ? "Unfollow" : "Follow";
-						}).length > 0 ? (
+						}).length !== 0 ? (
 							<Text
 								onPress={GetFollow}
 								className="bg-black text-white p-2 w-24 rounded-2xl text-center"
@@ -82,7 +82,14 @@ export default function Profile({ route }) {
 							</Text>
 						) : (
 							<Text className="bg-transparent0 text-white p-2 w-24 rounded-2xl text-center"></Text>
-						)}
+						)} */}
+
+						<Text
+							onPress={GetFollow}
+							className="bg-black text-white p-2 w-24 rounded-2xl text-center"
+						>
+							Follow
+						</Text>
 					</View>
 				</TouchableOpacity>
 				<View>

@@ -1,8 +1,8 @@
 import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
-import { POST_LIKE } from "../query/query_like";
 import { useMutation } from "@apollo/client";
-import { GET_POSTS } from "../query/query_getPosts";
+import { POST_LIKE } from "../query/mutation_likes";
+import { GET_POSTS } from "../query/query_posts";
 import { GET_POST_DETAIL } from "../query/query_postDetail";
 
 export default function Card({ item }) {

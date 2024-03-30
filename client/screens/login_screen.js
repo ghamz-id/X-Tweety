@@ -7,10 +7,10 @@ import {
 	ActivityIndicator,
 } from "react-native";
 import { useMutation } from "@apollo/client";
-import { LOGIN } from "../query/query_login";
 import { useContext, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { AuthContext } from "../context/auth";
+import { LOGIN } from "../query/mutation_login";
 
 export default function Login({ navigation }) {
 	const [email, setEmail] = useState("");

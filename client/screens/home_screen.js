@@ -6,7 +6,7 @@ import {
 } from "react-native";
 import Card from "../component/card";
 import { useQuery } from "@apollo/client";
-import { GET_POSTS } from "../query/query_getPosts";
+import { GET_POSTS } from "../query/query_posts";
 
 export default function HomeScreen({ navigation }) {
 	const { loading, error, data } = useQuery(GET_POSTS);
