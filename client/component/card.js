@@ -4,6 +4,8 @@ import { useMutation } from "@apollo/client";
 import { POST_LIKE } from "../query/mutation_likes";
 import { GET_POSTS } from "../query/query_posts";
 import { GET_POST_DETAIL } from "../query/query_postDetail";
+import { Modal_Post } from "./modal_post";
+import { Modal_Comment } from "./modal_comment";
 
 export default function Card({ item }) {
 	const id = item._id;
@@ -62,9 +64,9 @@ export default function Card({ item }) {
 							<Text> {item?.likes?.length}</Text>
 						</View>
 					</TouchableOpacity>
-					<TouchableOpacity onPress={() => Alert.alert("COMMENT")}>
+					<TouchableOpacity>
 						<View className="flex flex-row justify-center items-center p-2">
-							<Feather name="message-circle" size={20} color="black" />
+							<Modal_Comment id={item._id} />
 							<Text> {item?.comments?.length}</Text>
 						</View>
 					</TouchableOpacity>

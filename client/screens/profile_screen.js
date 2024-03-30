@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_FOLLOW } from "../query/mutation_follow";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
-import { Modal_Post } from "../component/button_post";
+import { Modal_Post } from "../component/modal_post";
 
 export default function Profile({ route }) {
 	const { id } = route.params;

@@ -57,6 +57,8 @@ const postResolvers = {
 			const { username } = await User.findById(contextValue.auth().id);
 			const createdAt = (updatedAt = new Date());
 
+			if (!content) throw new Error("Insert your comment");
+
 			const input = {
 				content,
 				username,

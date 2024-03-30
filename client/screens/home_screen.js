@@ -3,13 +3,11 @@ import {
 	View,
 	TouchableOpacity,
 	ActivityIndicator,
-	Button,
-	Text,
 } from "react-native";
 import Card from "../component/card";
 import { useQuery } from "@apollo/client";
 import { GET_POSTS } from "../query/query_posts";
-import { Button_Post, Modal_Post } from "../component/button_post";
+import { Modal_Post } from "../component/modal_post";
 
 export default function HomeScreen({ navigation }) {
 	const { loading, error, data } = useQuery(GET_POSTS);

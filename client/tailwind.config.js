@@ -12,7 +12,8 @@ module.exports = {
 		"./component/tab_navigators.js",
 		"./component/user_card.js",
 		"./component/comment_card.js",
-		"./component/button_post.js",
+		"./component/modal_post.js",
+		"./component/modal_comment.js",
 	],
 	theme: {
 		extend: {},
