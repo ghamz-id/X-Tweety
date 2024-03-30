@@ -80,16 +80,22 @@ export default function Profile({ route }) {
 			<View className="flex px-4 border-b border-slate-300">
 				<TouchableOpacity>
 					<View className="flex items-end py-3 w-full">
-						<Text
-							onPress={GetFollow}
-							className="bg-black text-white p-2 w-24 rounded-2xl text-center"
-						>
-							{Button_Follow}
-						</Text>
+						{userLogin !== id ? (
+							<Text
+								onPress={GetFollow}
+								className="bg-black text-white p-2 w-24 rounded-2xl text-center"
+							>
+								{Button_Follow}
+							</Text>
+						) : (
+							<Text className="bg-slate-100 border border-slate-300  p-2 w-24 rounded-2xl text-center">
+								Edit Profile
+							</Text>
+						)}
 					</View>
 				</TouchableOpacity>
 				<View>
-					<Text className="font-bold">{user?.name}</Text>
+					<Text className="font-bold capitalize">{user?.name}</Text>
 					<Text>@{user?.username}</Text>
 				</View>
 				<View className="flex flex-row mt-16 mb-4">

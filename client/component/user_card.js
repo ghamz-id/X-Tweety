@@ -8,7 +8,7 @@ import { GET_PROFILE } from "../query/query_getProfile";
 
 export default function User_Card({ item }) {
 	const [Follow, {}] = useMutation(ADD_FOLLOW, {
-		refetchQueries: [GET_PROFILE, SEARCH_USER],
+		refetchQueries: [{ query: GET_PROFILE }, SEARCH_USER],
 	});
 
 	const [userLogin, setUserLogin] = useState();
@@ -37,18 +37,20 @@ export default function User_Card({ item }) {
 				<Text>@{item.username}</Text>
 			</View>
 			<View>
-				<Text
-					onPress={() => {
-						Follow({
-							variables: {
-								followerId: item._id,
-							},
-						});
-					}}
-					className="bg-black text-white p-2 w-24 rounded-2xl text-center"
-				>
-					{Button_Follow}
-				</Text>
+				{userLogin !== item._id && (
+					<Text
+						onPress={() => {
+							Follow({
+								variables: {
+									followerId: item._id,
+								},
+							});
+						}}
+						className="bg-black text-white p-2 w-24 rounded-2xl text-center"
+					>
+						{Button_Follow}
+					</Text>
+				)}
 			</View>
 		</View>
 	);

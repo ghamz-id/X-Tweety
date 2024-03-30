@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
-import { Text, Image } from "react-native";
+import { Text, Image, Pressable } from "react-native";
 import HomeScreen from "../screens/home_screen";
 import Search from "../screens/search_screen";
 import * as SecureStore from "expo-secure-store";
@@ -30,32 +30,32 @@ export default function Tab_Navigator({ navigation }) {
 					),
 					headerTitleAlign: "center",
 					headerLeft: () => (
-						<Text
+						<Pressable
 							onPress={async () => {
 								const id = await SecureStore.getItemAsync("id");
 								navigation.navigate("Profile", { id });
 							}}
-							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
 								className="h-8 w-8 rounded-full mx-4"
+								style={{ borderWidth: 1, borderColor: "#999" }}
 								source={{
 									uri: "https://img.freepik.com/free-vector/isolated-young-handsome-man-set-different-poses-white-background-illustration_632498-649.jpg?w=740&t=st=1711613786~exp=1711614386~hmac=5b87fec659d229736cf47833ca4e3ba2301d393e8230c10aa88cbdededaba27e",
 								}}
 							/>
-						</Text>
+						</Pressable>
 					),
 					headerRight: () => (
-						<Text
+						<Pressable
 							onPress={async () => {
 								await SecureStore.deleteItemAsync("access_token");
 								await SecureStore.deleteItemAsync("id");
 								setIsSignedIn(false);
 							}}
-							className="mx-4 text-lg"
+							className="mx-4"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />
-						</Text>
+						</Pressable>
 					),
 					tabBarIcon: () => {
 						return <Entypo name="home" size={24} color="black" />;
@@ -74,32 +74,32 @@ export default function Tab_Navigator({ navigation }) {
 					),
 					headerTitleAlign: "center",
 					headerLeft: () => (
-						<Text
+						<Pressable
 							onPress={async () => {
 								const id = await SecureStore.getItemAsync("id");
 								navigation.navigate("Profile", { id });
 							}}
-							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
 								className="h-8 w-8 rounded-full mx-4"
+								style={{ borderWidth: 1, borderColor: "#999" }}
 								source={{
 									uri: "https://img.freepik.com/free-vector/isolated-young-handsome-man-set-different-poses-white-background-illustration_632498-649.jpg?w=740&t=st=1711613786~exp=1711614386~hmac=5b87fec659d229736cf47833ca4e3ba2301d393e8230c10aa88cbdededaba27e",
 								}}
 							/>
-						</Text>
+						</Pressable>
 					),
 					headerRight: () => (
-						<Text
+						<Pressable
 							onPress={async () => {
 								await SecureStore.deleteItemAsync("access_token");
 								await SecureStore.deleteItemAsync("id");
 								setIsSignedIn(false);
 							}}
-							className="mx-4 text-lg"
+							className="mx-4"
 						>
 							<MaterialIcons name="logout" size={24} color="black" />
-						</Text>
+						</Pressable>
 					),
 					tabBarIcon: () => {
 						return <FontAwesome name="search" size={24} color="black" />;

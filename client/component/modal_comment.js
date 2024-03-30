@@ -10,7 +10,7 @@ export const Modal_Comment = ({ id }) => {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [content, setContent] = useState("");
 	const [Comment, {}] = useMutation(ADD_COMMENT, {
-		refetchQueries: [GET_POSTS, GET_POST_DETAIL],
+		refetchQueries: [{ query: GET_POST_DETAIL }, GET_POSTS],
 	});
 	const GetComment = async () => {
 		try {

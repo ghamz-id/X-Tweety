@@ -1,11 +1,13 @@
-import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
-import { Feather, AntDesign } from "@expo/vector-icons";
-import { useMutation } from "@apollo/client";
+import { View, Image, Text, TouchableOpacity } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { useMutation, useQuery } from "@apollo/client";
 import { POST_LIKE } from "../query/mutation_likes";
 import { GET_POSTS } from "../query/query_posts";
 import { GET_POST_DETAIL } from "../query/query_postDetail";
-import { Modal_Post } from "./modal_post";
 import { Modal_Comment } from "./modal_comment";
+import { USER_LOGIN } from "../query/query_userLogin";
+import { useEffect, useState } from "react";
+import * as SecureStore from "expo-secure-store";
 
 export default function Card({ item }) {
 	const id = item._id;
@@ -17,6 +19,30 @@ export default function Card({ item }) {
 			variables: { postId: id },
 		});
 	};
+
+	// ----------- Validasi button like -----------
+	const [userLogin, setUserLogin] = useState();
+	const check = async () => {
+		setUserLogin(await SecureStore.getItemAsync("id"));
+	};
+	useEffect(() => {
+		check();
+	}, []);
+	const {
+		loading: load,
+		error,
+		data,
+	} = useQuery(USER_LOGIN, {
+		variables: {
+			id: userLogin,
+		},
+	});
+
+	const Button_Like = item.likes
+		.map((el) => {
+			return el.username;
+		})
+		.find((user) => user === data?.getDetail?.username);
 
 	return (
 		<View className="p-3 flex flex-row border-b border-slate-300">
@@ -32,21 +58,37 @@ export default function Card({ item }) {
 			</View>
 			{/* SIDE KANAN */}
 			<View className="flex-1 p-1">
-				<View className="mb-2 flex flex-row">
-					<Text className="font-bold">{item?.author[0]?.name} </Text>
-					<Text>
-						@{item?.author[0]?.username} -{" "}
+				<View className="mb-2 flex flex-row items-center">
+					<Text className="font-bold text-sm capitalize">
+						{item?.author[0]?.name}{" "}
+					</Text>
+					<Text className="font-light">@{item?.author[0]?.username}</Text>
+					<Text className="italic text-xs font-light">
+						{" "}
+						-{" "}
 						{(
 							(new Date().getTime() - item?.createdAt ||
 								new Date() - new Date(item?.createdAt)) /
 							1000 /
 							3600
-						).toFixed()}{" "}
-						Hours Ago
+						).toFixed() >= 24
+							? `${(
+									(new Date().getTime() - item?.createdAt ||
+										new Date() - new Date(item?.createdAt)) /
+									1000 /
+									3600 /
+									24
+							  ).toFixed()} Days ago`
+							: `${(
+									(new Date().getTime() - item?.createdAt ||
+										new Date() - new Date(item?.createdAt)) /
+									1000 /
+									3600
+							  ).toFixed()} Hours ago`}
 					</Text>
 				</View>
 				<View>
-					<Text>{item?.content}</Text>
+					<Text className="flex justify-center">{item?.content}</Text>
 					{item?.imgUrl && (
 						<Image
 							className="h-48 w-full rounded-xl mt-1 bg-cover"
@@ -60,7 +102,12 @@ export default function Card({ item }) {
 				<View className="flex flex-row justify-end">
 					<TouchableOpacity onPress={Like}>
 						<View className="flex flex-row justify-center items-center p-2">
-							<AntDesign name="like2" size={20} color="black" />
+							{!Button_Like && (
+								<AntDesign name="like2" size={20} color="black" />
+							)}
+							{Button_Like && (
+								<AntDesign name="like1" size={20} color="#3498DB" />
+							)}
 							<Text> {item?.likes?.length}</Text>
 						</View>
 					</TouchableOpacity>
