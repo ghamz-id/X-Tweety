@@ -2,10 +2,14 @@ import { View, Image, Text, TouchableOpacity, Alert } from "react-native";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import { POST_LIKE } from "../query/query_like";
 import { useMutation } from "@apollo/client";
+import { GET_POSTS } from "../query/query_getPosts";
+import { GET_POST_DETAIL } from "../query/query_postDetail";
 
 export default function Card({ item }) {
 	const id = item._id;
-	const [Likes, { loading, error, data }] = useMutation(POST_LIKE);
+	const [Likes, { loading }] = useMutation(POST_LIKE, {
+		refetchQueries: [{ query: GET_POST_DETAIL }, GET_POSTS],
+	});
 	const Like = () => {
 		Likes({
 			variables: { postId: id },
@@ -26,34 +30,41 @@ export default function Card({ item }) {
 			{/* SIDE KANAN */}
 			<View className="flex-1 p-1">
 				<View className="mb-2 flex flex-row">
-					<Text className="font-bold">{item.author[0].name} </Text>
+					<Text className="font-bold">{item?.author[0]?.name} </Text>
 					<Text>
-						@{item.author[0].username} -{" "}
-						{((new Date() - new Date(item.createdAt)) / 1000 / 3600).toFixed()}{" "}
+						@{item?.author[0]?.username} -{" "}
+						{(
+							(new Date().getTime() - item?.createdAt ||
+								new Date() - new Date(item?.createdAt)) /
+							1000 /
+							3600
+						).toFixed()}{" "}
 						Hours Ago
 					</Text>
 				</View>
 				<View>
-					<Text>{item.content}</Text>
-					<Image
-						className="h-48 w-full rounded-xl mt-1 bg-cover"
-						style={{ borderColor: "#ddd", borderWidth: 1 }}
-						source={{
-							uri: `${item.imgUrl}`,
-						}}
-					/>
+					<Text>{item?.content}</Text>
+					{item?.imgUrl && (
+						<Image
+							className="h-48 w-full rounded-xl mt-1 bg-cover"
+							style={{ borderColor: "#ddd", borderWidth: 1 }}
+							source={{
+								uri: `${item?.imgUrl}`,
+							}}
+						/>
+					)}
 				</View>
 				<View className="flex flex-row justify-end">
 					<TouchableOpacity onPress={Like}>
 						<View className="flex flex-row justify-center items-center p-2">
 							<AntDesign name="like2" size={20} color="black" />
-							<Text> {item.likes.length}</Text>
+							<Text> {item?.likes?.length}</Text>
 						</View>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => Alert.alert("COMMENT")}>
 						<View className="flex flex-row justify-center items-center p-2">
 							<Feather name="message-circle" size={20} color="black" />
-							<Text> {item.comments.length}</Text>
+							<Text> {item?.comments?.length}</Text>
 						</View>
 					</TouchableOpacity>
 				</View>

@@ -9,7 +9,7 @@ export default function Comment({ item }) {
 			</View>
 			<View className="flex items-center justify-center">
 				<Text>
-					{((new Date() - new Date(item.createdAt)) / 1000 / 3600).toFixed()}{" "}
+					{((new Date().getTime() - item.createdAt) / 1000 / 3600).toFixed()}{" "}
 					Hours Ago
 				</Text>
 			</View>

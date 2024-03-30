@@ -19,6 +19,7 @@ export default function Login({ navigation }) {
 	const [login, { loading }] = useMutation(LOGIN, {
 		onCompleted: async (data) => {
 			await SecureStore.setItemAsync("access_token", data?.login.access_token);
+			await SecureStore.setItemAsync("id", data?.login.id);
 			setIsSignedIn(true);
 		},
 	});
@@ -33,7 +34,7 @@ export default function Login({ navigation }) {
 
 	const Submit = async () => {
 		try {
-			await login({
+			const res = await login({
 				variables: {
 					email,
 					password,

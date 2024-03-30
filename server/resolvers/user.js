@@ -35,6 +35,7 @@ const userResolvers = {
 					id: data_user._id,
 					email: data_user.email,
 				}),
+				id: data_user._id,
 			};
 			return token;
 		},

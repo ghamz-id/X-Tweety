@@ -31,7 +31,10 @@ export default function Tab_Navigator({ navigation }) {
 					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Text
-							onPress={() => navigation.navigate("Profile")}
+							onPress={async () => {
+								const id = await SecureStore.getItemAsync("id");
+								navigation.navigate("Profile", { id });
+							}}
 							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
@@ -46,6 +49,7 @@ export default function Tab_Navigator({ navigation }) {
 						<Text
 							onPress={async () => {
 								await SecureStore.deleteItemAsync("access_token");
+								await SecureStore.deleteItemAsync("id");
 								setIsSignedIn(false);
 							}}
 							className="mx-4 text-lg"
@@ -71,7 +75,10 @@ export default function Tab_Navigator({ navigation }) {
 					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Text
-							onPress={() => navigation.navigate("Profile")}
+							onPress={async () => {
+								const id = await SecureStore.getItemAsync("id");
+								navigation.navigate("Profile", { id });
+							}}
 							className="h-8 w-8 rounded-full mx-4 text-lg"
 						>
 							<Image
@@ -86,6 +93,7 @@ export default function Tab_Navigator({ navigation }) {
 						<Text
 							onPress={async () => {
 								await SecureStore.deleteItemAsync("access_token");
+								await SecureStore.deleteItemAsync("id");
 								setIsSignedIn(false);
 							}}
 							className="mx-4 text-lg"

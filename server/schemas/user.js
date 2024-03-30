@@ -14,6 +14,7 @@ const userTypeDefs = `#graphql
 
   type Token {
     access_token: String
+    id: ID
   }
 
   type Follow {

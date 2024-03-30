@@ -1,7 +1,16 @@
-import { View, Image, Text, Alert, ActivityIndicator } from "react-native";
+import {
+	View,
+	Image,
+	Text,
+	ActivityIndicator,
+	TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GET_PROFILE } from "../query/query_getProfile";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_FOLLOW } from "../query/query_addFollow";
+import * as SecureStore from "expo-secure-store";
+import { useEffect, useState } from "react";
 
 export default function Profile({ route }) {
 	const { id } = route.params;
@@ -9,6 +18,26 @@ export default function Profile({ route }) {
 		variables: { id },
 	});
 	const user = data?.getDetail;
+
+	const [Follow, {}] = useMutation(ADD_FOLLOW, {
+		refetchQueries: [GET_PROFILE],
+	});
+	const GetFollow = () => {
+		Follow({
+			variables: {
+				followerId: id,
+			},
+		});
+	};
+
+	const [userLogin, setUserLogin] = useState();
+	const check = async () => {
+		setUserLogin(await SecureStore.getItemAsync("id"));
+	};
+	useEffect(() => {
+		check();
+	}, []);
+
 	if (loading) {
 		return (
 			<View className="flex-1 items-center justify-center">
@@ -36,14 +65,26 @@ export default function Profile({ route }) {
 				/>
 			</View>
 			<View className="flex px-4 border-b border-slate-300">
-				<View className="flex items-end py-3 w-full">
-					<Text
-						onPress={() => Alert.alert("Following")}
-						className="bg-black text-white p-2 w-24 rounded-2xl text-center"
-					>
-						Follow
-					</Text>
-				</View>
+				<TouchableOpacity>
+					<View className="flex items-end py-3 w-full">
+						{user.follower.map((item) => {
+							return item.followerId === userLogin ? "Unfollow" : "Follow";
+						}).length > 0 ? (
+							<Text
+								onPress={GetFollow}
+								className="bg-black text-white p-2 w-24 rounded-2xl text-center"
+							>
+								{user.follower.map((item) => {
+									return item.followerId === userLogin ? "Unfollow" : "Follow";
+								}).length === 1
+									? "Follow"
+									: "Unfollow"}
+							</Text>
+						) : (
+							<Text className="bg-transparent0 text-white p-2 w-24 rounded-2xl text-center"></Text>
+						)}
+					</View>
+				</TouchableOpacity>
 				<View>
 					<Text className="font-bold">{user?.name}</Text>
 					<Text>@{user?.username}</Text>

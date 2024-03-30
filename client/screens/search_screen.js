@@ -11,7 +11,7 @@ import { useQuery } from "@apollo/client";
 import { useState } from "react";
 
 export default function Search({ navigation }) {
-	const [username, setUsername] = useState("");
+	const [username, setUsername] = useState();
 	const { loading, error, data } = useQuery(GET_USER, {
 		variables: { username },
 	});
@@ -30,6 +30,7 @@ export default function Search({ navigation }) {
 					className="rounded-xl px-4 h-10 border border-slate-600 m-2 "
 					placeholder="Search X"
 					onChangeText={setUsername}
+					value={username}
 				></TextInput>
 			</View>
 			<ScrollView>

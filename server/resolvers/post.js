@@ -64,6 +64,7 @@ const postResolvers = {
 				updatedAt,
 			};
 			await Post.addComment(input, postId);
+			await redis.del("posts");
 			return input;
 		},
 		addLike: async (_, args, contextValue) => {
@@ -78,6 +79,7 @@ const postResolvers = {
 				updatedAt,
 			};
 			await Post.addLike(input, postId);
+			await redis.del("posts");
 			return input;
 		},
 	},

@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
 			<ScrollView>
 				{data?.posts?.map((item) => (
 					<TouchableOpacity
-						onPress={() => navigation.navigate("Posting", { item })}
+						onPress={() => navigation.navigate("Posting", { id: item._id })}
 						underlayColor="#eee"
 						key={item._id}
 					>

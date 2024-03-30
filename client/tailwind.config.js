@@ -7,6 +7,7 @@ module.exports = {
 		"./screens/home_screen.js",
 		"./screens/profile_screen.js",
 		"./screens/search_screen.js",
+		"./screens/detail_screen.js",
 		"./component/card.js",
 		"./component/tab_navigators.js",
 		"./component/user_card.js",
