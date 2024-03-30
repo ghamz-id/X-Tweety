@@ -15,6 +15,7 @@ export default function Card({ item }) {
 			variables: { postId: id },
 		});
 	};
+
 	return (
 		<View className="p-3 flex flex-row border-b border-slate-300">
 			{/* SIDE KIRI */}

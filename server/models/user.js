@@ -12,9 +12,54 @@ class User {
 	}
 
 	static async searchByUsername(username) {
-		const user = await this.db_user()
-			.find({ username: { $regex: username } }, { projection: { password: 0 } })
-			.toArray();
+		const agg = [
+			{
+				$match: {
+					username: { $regex: username },
+				},
+			},
+			{
+				$lookup: {
+					from: "Follows",
+					localField: "_id",
+					foreignField: "followingId",
+					as: "follower",
+				},
+			},
+			{
+				$lookup: {
+					from: "Users",
+					localField: "follower.followerId",
+					foreignField: "_id",
+					as: "follower_detail",
+				},
+			},
+			{
+				$lookup: {
+					from: "Follows",
+					localField: "_id",
+					foreignField: "followerId",
+					as: "following",
+				},
+			},
+			{
+				$lookup: {
+					from: "Users",
+					localField: "following.followingId",
+					foreignField: "_id",
+					as: "following_detail",
+				},
+			},
+			{
+				$project: {
+					password: 0,
+					"following_detail.password": 0,
+					"follower_detail.password": 0,
+				},
+			},
+		];
+		const cursor = this.db_user().aggregate(agg);
+		const user = await cursor.toArray();
 		return user;
 	}
 

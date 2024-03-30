@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { ADD_FOLLOW } from "../query/mutation_follow";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
+import { Modal_Post } from "../component/button_post";
 
 export default function Profile({ route }) {
 	const { id } = route.params;
@@ -45,6 +46,18 @@ export default function Profile({ route }) {
 			</View>
 		);
 	}
+
+	const Button_Follow =
+		user.follower
+			.map((item) => {
+				if (item.followerId === userLogin) {
+					return "Unfollow";
+				}
+			})
+			.find((item) => item === "Unfollow") === "Unfollow"
+			? "Unfollow"
+			: "Follow";
+
 	return (
 		<SafeAreaView className="flex-1">
 			<View className="flex-1 border-b border-t border-slate-300">
@@ -67,28 +80,11 @@ export default function Profile({ route }) {
 			<View className="flex px-4 border-b border-slate-300">
 				<TouchableOpacity>
 					<View className="flex items-end py-3 w-full">
-						{/* {user.follower.map((item) => {
-							return item.followerId === userLogin ? "Unfollow" : "Follow";
-						}).length !== 0 ? (
-							<Text
-								onPress={GetFollow}
-								className="bg-black text-white p-2 w-24 rounded-2xl text-center"
-							>
-								{user.follower.map((item) => {
-									return item.followerId === userLogin ? "Unfollow" : "Follow";
-								}).length === 1
-									? "Follow"
-									: "Unfollow"}
-							</Text>
-						) : (
-							<Text className="bg-transparent0 text-white p-2 w-24 rounded-2xl text-center"></Text>
-						)} */}
-
 						<Text
 							onPress={GetFollow}
 							className="bg-black text-white p-2 w-24 rounded-2xl text-center"
 						>
-							Follow
+							{Button_Follow}
 						</Text>
 					</View>
 				</TouchableOpacity>

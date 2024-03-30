@@ -25,7 +25,6 @@ export default function Register({ navigation }) {
 			Alert.alert("Register Success");
 			navigation.navigate("Login");
 		} catch (error) {
-			console.log(error.message);
 			Alert.alert("Register Failed", error.message);
 		}
 	};

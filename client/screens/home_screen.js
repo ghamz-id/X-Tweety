@@ -3,10 +3,13 @@ import {
 	View,
 	TouchableOpacity,
 	ActivityIndicator,
+	Button,
+	Text,
 } from "react-native";
 import Card from "../component/card";
 import { useQuery } from "@apollo/client";
 import { GET_POSTS } from "../query/query_posts";
+import { Button_Post, Modal_Post } from "../component/button_post";
 
 export default function HomeScreen({ navigation }) {
 	const { loading, error, data } = useQuery(GET_POSTS);
@@ -20,18 +23,21 @@ export default function HomeScreen({ navigation }) {
 	}
 
 	return (
-		<View>
-			<ScrollView>
-				{data?.posts?.map((item) => (
-					<TouchableOpacity
-						onPress={() => navigation.navigate("Posting", { id: item._id })}
-						underlayColor="#eee"
-						key={item._id}
-					>
-						<Card item={item} />
-					</TouchableOpacity>
-				))}
-			</ScrollView>
-		</View>
+		<>
+			<View>
+				<ScrollView>
+					{data?.posts?.map((item) => (
+						<TouchableOpacity
+							onPress={() => navigation.navigate("Posting", { id: item._id })}
+							underlayColor="#eee"
+							key={item._id}
+						>
+							<Card item={item} />
+						</TouchableOpacity>
+					))}
+				</ScrollView>
+				<Modal_Post />
+			</View>
+		</>
 	);
 }

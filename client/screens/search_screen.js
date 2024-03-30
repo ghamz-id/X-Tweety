@@ -9,6 +9,7 @@ import User_Card from "../component/user_card";
 import { useQuery } from "@apollo/client";
 import { useState } from "react";
 import { SEARCH_USER } from "../query/query_searchUser";
+
 export default function Search({ navigation }) {
 	const [username, setUsername] = useState("");
 	const { loading, error, data } = useQuery(SEARCH_USER, {
