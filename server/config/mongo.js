@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV !== "production") {
-	require("dotenv").config();
-}
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = process.env.MONGO_DB_URL;
 
