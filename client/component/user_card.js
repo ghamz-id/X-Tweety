@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 import { ADD_FOLLOW } from "../query/mutation_follow";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
@@ -32,9 +32,18 @@ export default function User_Card({ item }) {
 
 	return (
 		<View className="flex flex-row p-4 border-b border-slate-300">
-			<View className="flex-1">
-				<Text className="font-bold">{item.name}</Text>
-				<Text>@{item.username}</Text>
+			<View className="flex-1 flex-row">
+				<Image
+					className="h-10 w-10 rounded-full"
+					style={{ borderColor: "#ddd", borderWidth: 1 }}
+					source={{
+						uri: "https://img.freepik.com/free-vector/isolated-young-handsome-man-set-different-poses-white-background-illustration_632498-649.jpg?w=740&t=st=1711613786~exp=1711614386~hmac=5b87fec659d229736cf47833ca4e3ba2301d393e8230c10aa88cbdededaba27e",
+					}}
+				/>
+				<View className="px-2">
+					<Text className="font-bold">{item.name}</Text>
+					<Text>@{item.username}</Text>
+				</View>
 			</View>
 			<View>
 				{userLogin !== item._id && (

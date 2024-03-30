@@ -73,9 +73,8 @@ export const Modal_Post = () => {
 						<TextInput
 							placeholder="Image"
 							className="border px-5 rounded-lg border-white bg-slate-300"
-							onChange={setImgUrl}
+							onChangeText={setImgUrl}
 							value={imgUrl}
-							dataDetectorTypes="link"
 						/>
 						<View className="flex flex-row justify-around mt-8">
 							<Pressable
