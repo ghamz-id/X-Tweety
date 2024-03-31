@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { Text, TextInput, View, Alert } from "react-native";
+import { Text, TextInput, View, Alert, Pressable } from "react-native";
 import { REGISTER } from "../query/mutation_register";
 import { useState } from "react";
 
@@ -59,12 +59,14 @@ export default function Register({ navigation }) {
 					onChangeText={setPassword}
 					value={password}
 				/>
-				<Text
-					onPress={Submit}
-					className="text-center font-bold p-2 mt-8 rounded-3xl bg-black text-white border border-black w-80"
-				>
-					Register
-				</Text>
+				<Pressable className="mt-8 rounded-3xl bg-black border border-black w-80">
+					<Text
+						onPress={Submit}
+						className="text-center font-bold p-2 text-white"
+					>
+						Register
+					</Text>
+				</Pressable>
 				<View className="flex flex-row mt-8">
 					<Text>Already have an account ? </Text>
 					<Text

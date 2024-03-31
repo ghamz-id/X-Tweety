@@ -72,7 +72,7 @@ export const Modal_Post = () => {
 						</Text>
 						<TextInput
 							placeholder="Image"
-							className="border px-5 rounded-lg border-white bg-slate-300"
+							className="border px-5 py-1 rounded-lg border-white bg-slate-300"
 							onChangeText={setImgUrl}
 							value={imgUrl}
 						/>

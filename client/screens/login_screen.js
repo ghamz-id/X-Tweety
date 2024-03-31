@@ -5,6 +5,7 @@ import {
 	Image,
 	Alert,
 	ActivityIndicator,
+	Pressable,
 } from "react-native";
 import { useMutation } from "@apollo/client";
 import { useContext, useState } from "react";
@@ -68,21 +69,25 @@ export default function Login({ navigation }) {
 				value={password}
 			/>
 			<View className="w-80 mt-8">
-				<Text
-					onPress={Submit}
-					className="text-center font-bold p-2 rounded-3xl bg-black text-white border border-black"
-				>
-					Login
-				</Text>
+				<Pressable className="rounded-3xl bg-black border border-black">
+					<Text
+						onPress={Submit}
+						className="text-center font-bold p-2 text-white"
+					>
+						Login
+					</Text>
+				</Pressable>
 				<Text className="text-slate-500 mt-14 text-center p-1">
 					Doesn't have an account yet ?
 				</Text>
-				<Text
-					onPress={() => navigation.navigate("Register")}
-					className="text-center  font-bold p-2 border border-gray-400 rounded-3xl"
-				>
-					Register
-				</Text>
+				<Pressable className="border border-gray-400 rounded-3xl">
+					<Text
+						onPress={() => navigation.navigate("Register")}
+						className="text-center font-bold p-2"
+					>
+						Register
+					</Text>
+				</Pressable>
 
 				<Text className="mt-8 text-slate-500 text-center tracking-tight">
 					Dengan mendaftar, Anda menyetujui

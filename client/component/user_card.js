@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
 import { ADD_FOLLOW } from "../query/mutation_follow";
 import { useState } from "react";
 import * as SecureStore from "expo-secure-store";
@@ -34,27 +34,29 @@ export default function User_Card({ item }) {
 			</View>
 			<View>
 				{userLogin !== item._id && (
-					<TouchableOpacity
-						onPress={() => {
-							Follow({
-								variables: {
-									followerId: item._id,
-								},
-							});
-						}}
-					>
-						<Text className="bg-black text-white p-2 w-24 rounded-2xl text-center font-bold">
-							{item?.follower
-								?.map((item) => {
-									if (item?.followerId === userLogin) {
-										return "Unfollow";
-									}
-								})
-								?.find((item) => item === "Unfollow") === "Unfollow"
-								? "Unfollow"
-								: "Follow"}
-						</Text>
-					</TouchableOpacity>
+					<Pressable className="bg-black w-24 rounded-2xl">
+						<TouchableOpacity
+							onPress={() => {
+								Follow({
+									variables: {
+										followerId: item._id,
+									},
+								});
+							}}
+						>
+							<Text className=" text-white p-2 text-center font-bold">
+								{item?.follower
+									?.map((item) => {
+										if (item?.followerId === userLogin) {
+											return "Unfollow";
+										}
+									})
+									?.find((item) => item === "Unfollow") === "Unfollow"
+									? "Unfollow"
+									: "Follow"}
+							</Text>
+						</TouchableOpacity>
+					</Pressable>
 				)}
 			</View>
 		</View>

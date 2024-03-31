@@ -4,6 +4,7 @@ import {
 	Text,
 	TouchableOpacity,
 	ActivityIndicator,
+	Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useMutation, useQuery } from "@apollo/client";
@@ -50,7 +51,7 @@ export default function Profile({ route }) {
 					}}
 				/>
 			</View>
-			<View className="absolute mt-36 px-4 z-10">
+			<View className="absolute mt-[32%] px-4 z-10">
 				<Image
 					className="h-20 w-20 rounded-full"
 					style={{ borderColor: "#fff", borderWidth: 3 }}
@@ -61,32 +62,36 @@ export default function Profile({ route }) {
 			</View>
 			<View className="flex px-4 border-b border-slate-300">
 				<TouchableOpacity>
-					<View className="flex items-end py-3 w-full">
+					<View className="flex items-end pt-3 w-full">
 						{userLogin !== data.getDetail._id ? (
-							<Text
-								onPress={() =>
-									Follow({
-										variables: {
-											followerId: data.getDetail._id,
-										},
-									})
-								}
-								className="bg-black text-white p-2 w-24 rounded-2xl text-center font-bold"
-							>
-								{data.getDetail.follower
-									?.map((item) => {
-										if (item?.followerId === userLogin) {
-											return "Unfollow";
-										}
-									})
-									?.find((item) => item === "Unfollow") === "Unfollow"
-									? "Unfollow"
-									: "Follow"}
-							</Text>
+							<Pressable className="bg-black w-24 rounded-2xl">
+								<Text
+									onPress={() =>
+										Follow({
+											variables: {
+												followerId: data.getDetail._id,
+											},
+										})
+									}
+									className=" text-white p-2 text-center font-bold"
+								>
+									{data.getDetail.follower
+										?.map((item) => {
+											if (item?.followerId === userLogin) {
+												return "Unfollow";
+											}
+										})
+										?.find((item) => item === "Unfollow") === "Unfollow"
+										? "Unfollow"
+										: "Follow"}
+								</Text>
+							</Pressable>
 						) : (
-							<Text className="bg-slate-100 text-slate-600 p-2 w-24 rounded-2xl text-center font-bold border border-slate-300">
-								Edit Profile
-							</Text>
+							<Pressable className="bg-slate-100 w-24 rounded-2xl border border-slate-300">
+								<Text className="text-slate-600 p-2 text-center font-bold">
+									Edit Profile
+								</Text>
+							</Pressable>
 						)}
 					</View>
 				</TouchableOpacity>
@@ -94,14 +99,14 @@ export default function Profile({ route }) {
 					<Text className="font-bold capitalize">{data.getDetail.name}</Text>
 					<Text>@{data.getDetail.username}</Text>
 				</View>
-				<View className="flex flex-row mt-16 mb-4">
+				<View className="flex flex-row mt-12 mb-2">
 					<TouchableOpacity onPress={() => setFlag("Following")}>
-						<Text className="font-bold" style={{ marginEnd: 10 }}>
+						<Text className="font-bold py-2" style={{ marginEnd: 10 }}>
 							{data.getDetail.following.length} Following
 						</Text>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={() => setFlag("Follower")}>
-						<Text className="font-bold">
+						<Text className="font-bold py-2">
 							{data.getDetail.follower.length} Follower
 						</Text>
 					</TouchableOpacity>
