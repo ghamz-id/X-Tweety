@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
-import { Text, Image, Pressable } from "react-native";
+import { Image, Pressable } from "react-native";
 import HomeScreen from "../screens/home_screen";
 import Search from "../screens/search_screen";
 import * as SecureStore from "expo-secure-store";
@@ -12,11 +12,19 @@ import {
 	FontAwesome,
 	MaterialIcons,
 } from "@expo/vector-icons";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/auth";
 
 export default function Tab_Navigator({ navigation }) {
 	const { setIsSignedIn } = useContext(AuthContext);
+
+	// Get ID User login
+	const [id, setId] = useState("");
+	(async () => {
+		const data_id = await SecureStore.getItemAsync("id");
+		return setId(data_id);
+	})();
+
 	return (
 		<Tab.Navigator>
 			{/* ----- HOME ----- */}
@@ -31,9 +39,10 @@ export default function Tab_Navigator({ navigation }) {
 					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Pressable
-							onPress={async () => {
-								const id = await SecureStore.getItemAsync("id");
-								navigation.navigate("Profile", { id });
+							onPress={() => {
+								navigation.navigate("Profile", {
+									variables: { id },
+								});
 							}}
 						>
 							<Image
@@ -75,9 +84,10 @@ export default function Tab_Navigator({ navigation }) {
 					headerTitleAlign: "center",
 					headerLeft: () => (
 						<Pressable
-							onPress={async () => {
-								const id = await SecureStore.getItemAsync("id");
-								navigation.navigate("Profile", { id });
+							onPress={() => {
+								navigation.navigate("Profile", {
+									variables: { id },
+								});
 							}}
 						>
 							<Image

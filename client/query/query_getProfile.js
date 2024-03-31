@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_PROFILE = gql`
+const GET_PROFILE = gql`
 	query GetDetail($id: ID) {
 		getDetail(_id: $id) {
 			_id
@@ -39,3 +39,5 @@ export const GET_PROFILE = gql`
 		}
 	}
 `;
+
+export default GET_PROFILE;

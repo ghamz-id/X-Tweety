@@ -6,10 +6,16 @@ import { GET_POSTS } from "../query/query_posts";
 import { GET_POST_DETAIL } from "../query/query_postDetail";
 import { Modal_Comment } from "./modal_comment";
 import { USER_LOGIN } from "../query/query_userLogin";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as SecureStore from "expo-secure-store";
 
 export default function Card({ item }) {
+	const [userLogin, setUserLogin] = useState();
+	(async () => {
+		const check = await SecureStore.getItemAsync("id");
+		return setUserLogin(check);
+	})();
+
 	const id = item._id;
 	const [Likes, { loading }] = useMutation(POST_LIKE, {
 		refetchQueries: [{ query: GET_POST_DETAIL }, GET_POSTS],
@@ -20,14 +26,6 @@ export default function Card({ item }) {
 		});
 	};
 
-	// ----------- Validasi button like -----------
-	const [userLogin, setUserLogin] = useState();
-	const check = async () => {
-		setUserLogin(await SecureStore.getItemAsync("id"));
-	};
-	useEffect(() => {
-		check();
-	}, []);
 	const {
 		loading: load,
 		error,
@@ -38,6 +36,7 @@ export default function Card({ item }) {
 		},
 	});
 
+	// ----------- Validasi button like -----------
 	const Button_Like = item.likes
 		.map((el) => {
 			return el.username;
@@ -113,7 +112,7 @@ export default function Card({ item }) {
 					</TouchableOpacity>
 					<TouchableOpacity>
 						<View className="flex flex-row justify-center items-center p-2">
-							<Modal_Comment id={item._id} />
+							<Modal_Comment id={item?._id} />
 							<Text> {item?.comments?.length}</Text>
 						</View>
 					</TouchableOpacity>

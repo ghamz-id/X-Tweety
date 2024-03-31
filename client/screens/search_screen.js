@@ -34,14 +34,14 @@ export default function Search({ navigation }) {
 				></TextInput>
 			</View>
 			<ScrollView>
-				{data?.searchUser?.map((item) => (
+				{data?.searchUser?.map((item, i) => (
 					<TouchableOpacity
-						key={item._id}
 						onPress={() =>
 							navigation.navigate("Profile", {
-								id: item._id,
+								variables: { id: item._id },
 							})
 						}
+						key={i}
 					>
 						<User_Card item={item} />
 					</TouchableOpacity>
