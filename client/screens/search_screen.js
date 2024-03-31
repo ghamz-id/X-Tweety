@@ -6,15 +6,14 @@ import {
 	View,
 } from "react-native";
 import User_Card from "../component/user_card";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { useState } from "react";
 import { SEARCH_USER } from "../query/query_searchUser";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function Search({ navigation }) {
 	const [username, setUsername] = useState("");
-	const { loading, error, data } = useQuery(SEARCH_USER, {
-		variables: { username },
-	});
+	const [GetUsername, { loading, error, data }] = useLazyQuery(SEARCH_USER);
 
 	if (loading) {
 		return (
@@ -25,13 +24,21 @@ export default function Search({ navigation }) {
 	}
 	return (
 		<>
-			<View className="border-b border-slate-300">
+			<View className="border-b border-slate-300 flex flex-row p-3 gap-2">
 				<TextInput
-					className="rounded-xl px-4 h-10 border border-slate-600 m-2 "
+					className="flex-1 rounded-xl px-4 h-10 border border-slate-600"
 					placeholder="Search X"
 					onChangeText={setUsername}
 					value={username}
-				></TextInput>
+				/>
+				<TouchableOpacity
+					onPress={() => {
+						GetUsername({ variables: { username } });
+					}}
+					className="rounded-xl border border-white bg-slate-300 flex w-10 items-center justify-center"
+				>
+					<FontAwesome name="search" size={20} color="black" />
+				</TouchableOpacity>
 			</View>
 			<ScrollView>
 				{data?.searchUser?.map((item, i) => (

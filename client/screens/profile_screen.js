@@ -3,8 +3,6 @@ import {
 	Image,
 	Text,
 	TouchableOpacity,
-	Pressable,
-	Alert,
 	ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -97,20 +95,26 @@ export default function Profile({ route }) {
 					<Text>@{data.getDetail.username}</Text>
 				</View>
 				<View className="flex flex-row mt-16 mb-4">
-					<Pressable onPress={() => setFlag("Following")}>
+					<TouchableOpacity onPress={() => setFlag("Following")}>
 						<Text className="font-bold" style={{ marginEnd: 10 }}>
 							{data.getDetail.following.length} Following
 						</Text>
-					</Pressable>
-					<Pressable onPress={() => setFlag("Follower")}>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => setFlag("Follower")}>
 						<Text className="font-bold">
 							{data.getDetail.follower.length} Follower
 						</Text>
-					</Pressable>
+					</TouchableOpacity>
 				</View>
 			</View>
 			<View className="flex-[4] items-center">
-				<Text className="font-bold border-b border-slate-300 w-80 text-center p-1 bg-blue-100 mt-1 tracking-widest text-slate-600">
+				<Text
+					className={
+						flag === "Following"
+							? "font-bold border-b border-slate-300 w-80 text-center p-1 bg-blue-100 mt-1 tracking-widest text-slate-600"
+							: "font-bold border-b border-slate-300 w-80 text-center p-1 bg-red-100 mt-1 tracking-widest text-slate-600"
+					}
+				>
 					{flag}
 				</Text>
 				{flag === "Following"

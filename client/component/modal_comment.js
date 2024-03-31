@@ -23,7 +23,7 @@ export const Modal_Comment = ({ id }) => {
 			Alert.alert("Success add comment");
 			setModalVisible(!modalVisible);
 		} catch (error) {
-			Alert.alert("Failed", error.message);
+			Alert.alert(error.message);
 		}
 	};
 	return (

@@ -79,7 +79,7 @@ export default function Login({ navigation }) {
 				</Text>
 				<Text
 					onPress={() => navigation.navigate("Register")}
-					className="text-center  font-bold p-2 border border-slate-300 rounded-3xl"
+					className="text-center  font-bold p-2 border border-gray-400 rounded-3xl"
 				>
 					Register
 				</Text>
